@@ -1,4 +1,7 @@
 *.pyc
+
 .env/
+bower_components/
+.webassets-cache/
 
 config.py
