@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+
+{% block main %}
+<div class="well">
+	<form class="form-horizontal" action method="POST">
+		<div class="form-group">
+			<label for="username" class="col-md-2 control-label">Username</label>
+			<div class="col-md-10">
+				<input type="text" class="form-control" id="username" name="username" placeholder="Username" autocomplete="off" default>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="password" class="col-md-2 control-label">Password</label>
+			<div class="col-md-10">
+				<input type="password" class="form-control" id="password" name="password" placeholder="Password" autocomplete="off">
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-12">
+				<button class="btn btn-block btn-primary">Log In</button>
+			</div>
+		</div>
+	</form>
+</div>
+{% endblock %}
