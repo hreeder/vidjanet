@@ -1,7 +1,10 @@
 *.pyc
 
 .env/
+
 bower_components/
 .webassets-cache/
+js_all.js
+css_all.css
 
 config.py
