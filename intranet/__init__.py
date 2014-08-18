@@ -4,6 +4,7 @@ from flask import Flask
 from flask.ext.assets import Bundle, Environment
 from flask.ext.login import LoginManager, current_user
 
+from intranet.classes.groups import GroupTools
 from intranet.classes.users import UserTools
 
 app = Flask(__name__)
@@ -12,10 +13,14 @@ app.config.from_object("config.DevelopmentConfig")
 
 assets = Environment(app)
 users = UserTools(app)
+groups = GroupTools(app)
 
 lm = LoginManager()
 lm.init_app(app)
 lm.login_view = "login"
+
+from intranet.models.user import AnonymousUser
+lm.anonymous_user = AnonymousUser
 
 @lm.user_loader
 def load_user(userid):

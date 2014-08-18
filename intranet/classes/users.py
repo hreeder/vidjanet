@@ -1,5 +1,8 @@
 import MySQLdb
 
+from flask import flash, redirect
+from flask.ext.login import current_user
+from functools import wraps
 from phpass import PasswordHash
 
 from intranet.models.user import User
@@ -63,3 +66,15 @@ class UserTools(object):
 			return hasher.check_password(str(password), str(hash))
 		else:
 			return False
+
+	def is_user_admin(self, user):
+		return self.app.config['ADMIN_GROUP_ID'] in [int(group.id) for group in user.get_groups()]
+
+def admin(func):
+	@wraps(func)
+	def decorated_view(*args, **kwargs):
+		if current_user.is_admin():
+			return func(*args, **kwargs)
+		flash("You are not an admin. If this is an error, please contact Skull <3")
+		return redirect("/")
+	return decorated_view
