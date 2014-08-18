@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html>
-{% include 'parts/headers.html' %}
+<head>
+	<title>{% block title %}Intranet{% endblock %} | BreachLAN Intranet</title>
+	{% assets "css_all" %}
+		<link rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+	{% endassets %}
+</head>
 <body>
 	{% include 'parts/navbar.html' %}
 	<div class="container">
 		{% block main %}
 		{% endblock %}
 	</div>
+
+	{% assets "js_all" %}
+	<script type="text/javascript" src="{{ ASSET_URL }}"></script>
+	{% endassets %}
 </body>
 </html>
