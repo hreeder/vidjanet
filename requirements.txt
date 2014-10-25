@@ -16,7 +16,6 @@ bcrypt==1.0.2
 cffi==0.8.6
 itsdangerous==0.24
 pycparser==2.10
-python-phpass==0.1
 redis==2.10.3
 webassets==0.10.1
 wsgiref==0.1.2
