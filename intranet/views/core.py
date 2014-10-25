@@ -1,6 +1,6 @@
 from intranet import app, users
 
-from flask import render_template, request, redirect
+from flask import render_template, request, redirect, flash
 from flask.ext.login import login_user, logout_user
 
 @app.route("/")
@@ -22,13 +22,15 @@ def login():
 
 	if credentialsCorrect:
 		user = users.get_user(username=username)
-		login_user(user)
-
+		login_user(user, remember=True)
+		flash("Logged in successfully", "success")
 		return redirect("/")
 	else:
+		flash("Those details were incorrect", "danger")
 		return redirect("/login")
 
 @app.route("/logout")
 def logout():
 	logout_user()
+	flash("Logged out successfully", "success")
 	return redirect("/")

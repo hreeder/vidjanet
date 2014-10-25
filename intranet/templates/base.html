@@ -8,6 +8,18 @@
 </head>
 <body>
 	{% include 'parts/navbar.html' %}
+	{% with messages = get_flashed_messages(with_categories=true) %}
+		{% if messages %}
+			<div class="container">
+				{% for category, message in messages %}
+					<div class="alert alert-{% if category != "message" %}{{ category }}{% else %}danger{% endif %}">
+						<a class="close" type="button" data-dismiss="alert">&times;</a>
+						{{ message }}
+					</div>
+				{% endfor %}
+			</div>
+		{% endif %}
+	{% endwith %}
 	<div class="container">
 		{% block main %}
 		{% endblock %}
@@ -16,5 +28,7 @@
 	{% assets "js_all" %}
 	<script type="text/javascript" src="{{ ASSET_URL }}"></script>
 	{% endassets %}
+	{% block endjs %}
+	{% endblock %}
 </body>
 </html>

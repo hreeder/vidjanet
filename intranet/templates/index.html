@@ -1,2 +1,64 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
+
+{% block main %}
+<div class="jumbotron" style="text-align: center;">
+	<h1>Welcome to {{ config.EVENT_NAME }} {{ setting("eventno") }}{% if current_user.is_authenticated() %}, {{ current_user.username }}{% endif %}</h1>
+</div>
+
+{% if setting("RvB") %}
+<section id="rvb">
+	<h3 style="text-align: center;">RvB Scores</h3>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="well well-danger" style="text-align: center;">
+				<h3 id="rvb-red-score">{{ setting("RvB-red-score") }}</h3>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="well well-info" style="text-align: center;">
+				<h3 id="rvb-blue-score">{{ setting("RvB-blue-score") }}</h3>
+			</div>
+		</div>
+	</div>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block endjs %}
+	{% if setting("RvB") %}
+		<script type="text/javascript">
+			$(document).ready(function(){
+				setInterval(function(){
+					$.getJSON(
+						'/api/v1/rvb.json',
+						function(rvb){
+							if ($('#rvb').hasClass('hide')) {
+								$('#rvb').removeClass("hide");
+							}
+							if (rvb['status'] == "enabled") {
+								// RvB is enabled, set the scores
+								// Let's get the current scores
+								var red = $('#rvb-red-score').text();
+								if (red != rvb['red_score']) {
+									$('#rvb-red-score').fadeOut(function(){
+										$(this).text(rvb['red_score']).fadeIn();
+									});
+								}
+
+								var blue = $('#rvb-blue-score').text();
+								if (blue != $('#rvb-blue-score')) {
+									$('#rvb-blue-score').fadeOut(function(){
+										$(this).text(rvb['blue_score']).fadeIn();
+									});
+								}
+							} else {
+								$('#rvb').addClass("hide");
+							}
+						}
+					);
+				},10000);
+			});
+		</script>
+	{% endif %}
+{% endblock %}

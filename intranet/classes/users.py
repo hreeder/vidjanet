@@ -1,3 +1,4 @@
+import hashlib
 import MySQLdb
 
 from flask import flash, redirect
@@ -64,7 +65,20 @@ class UserTools(object):
 		if scheme == "XenForo_Authentication_Core12":
 			hash = data.split(";")[1].split('"')[1]
 			return hasher.check_password(str(password), str(hash))
+		elif scheme == "XenForo_Authentication_vBulletin":
+			hash = data.split(";")[1].split('"')[1]
+			salt = data.split(";")[3].split('"')[1]
+			
+			outer = hashlib.md5()
+			inner = hashlib.md5()
+
+			inner.update(str(password))
+			outer.update(inner.hexdigest())
+			outer.update(str(salt))
+
+			return outer.hexdigest() == hash
 		else:
+			flash("Login Error - Please Contact Skull - SCHEME NOT RECOGNISED", "danger")
 			return False
 
 	def is_user_admin(self, user):

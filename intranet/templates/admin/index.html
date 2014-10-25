@@ -2,5 +2,24 @@
 {% block title %}Intranet Administration{% endblock %}
 
 {% block content %}
-<h1>Intranet Administration</h1>
+<h1>Dashboard</h1>
+<div class="row">
+	<h4><i class="fa fa-gamepad"></i> Event</h4>
+	<div class="row">
+		<div class="col-md-6">	
+			<div class="well well-sm"><b>Event</b> #{{ setting("eventno") }}</div>
+		</div>
+		<div class="col-md-6">
+			<div class="well well-sm"><b>RvB</b> {% if setting("RvB") %}Enabled{% else %}Disabled{% endif %}</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">	
+			<div class="well well-sm"><b>Start Day</b> {{ setting("startday")|expand_day }}</div>
+		</div>
+		<div class="col-md-6">
+			<div class="well well-sm"><b>End Day</b> {{ setting("endday")|expand_day }}</div>
+		</div>
+	</div>
+</div>
 {% endblock %}

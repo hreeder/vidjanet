@@ -1,3 +1,7 @@
-/*body {
-	background-color: #333;
-}*/
+.well-danger {
+	background-color: #d9534f;
+}
+
+.well-info {
+	background-color: #29abe0;
+}

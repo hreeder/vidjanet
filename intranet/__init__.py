@@ -1,8 +1,11 @@
 import os
+import redis
 
 from flask import Flask
 from flask.ext.assets import Bundle, Environment
 from flask.ext.login import LoginManager, current_user
+from flask.ext.migrate import Migrate
+from flask.ext.sqlalchemy import SQLAlchemy
 
 from intranet.classes.groups import GroupTools
 from intranet.classes.users import UserTools
@@ -12,8 +15,10 @@ app = Flask(__name__)
 app.config.from_object("config.DevelopmentConfig")
 
 assets = Environment(app)
-users = UserTools(app)
+db = SQLAlchemy(app)
 groups = GroupTools(app)
+migrate = Migrate(app, db)
+users = UserTools(app)
 
 lm = LoginManager()
 lm.init_app(app)
@@ -43,6 +48,8 @@ assets.register(
 assets.register(
 	'css_all',
 	Bundle(
+		'css/fonts.css',
+		'fontawesome/css/font-awesome.css',
 		'bootswatch/sandstone/bootstrap.min.css',
 		'css/intranet.css',
 		output='css_all.css'
@@ -50,4 +57,18 @@ assets.register(
 
 )
 
-from intranet import views
+r = redis.Redis()
+
+@app.context_processor
+def settings_processor():
+	def get_setting(setting):
+		retval = r.get(app.config['SETTING_PREFIX'] + setting)
+		if retval == "False":
+			return False
+		else:
+			return retval
+	return dict(setting=get_setting)
+
+from intranet import views, filters
+
+from intranet.models import timeslots, games
