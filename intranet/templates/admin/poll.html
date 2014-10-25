@@ -1,0 +1,27 @@
+{% extends "admin/base.html" %}
+{% block title %}Viewing Time Slot{% endblock %}
+
+{% block content %}
+<h2>Viewing Poll: {{ slot.day|expand_day }} {{ slot.start }} - {{ slot.end }} <a href="/admin/schedule" class="btn btn-primary pull-right">&lt; Back to List</a></h2>
+<div class="clearfix"></div><br />
+<table class="table table-hover table-striped table-bordered">
+	<thead>
+		<tr>
+			<th>Game</th>
+			<th>Number of Votes</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for game in games %}
+		<tr>
+			<td>{{ game.name }}</td>
+			<td>{{ slot.get_number_votes(game.id) }}</td>
+			<td>
+				<a href="" class="btn btn-info btn-xs">Accept</a>
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}
