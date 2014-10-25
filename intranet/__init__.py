@@ -57,7 +57,7 @@ assets.register(
 
 )
 
-r = redis.Redis()
+r = redis.Redis(host=app.config['REDIS_SERVER'], port=app.config['REDIS_PORT'])
 
 @app.context_processor
 def settings_processor():
