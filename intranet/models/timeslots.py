@@ -1,4 +1,5 @@
 from intranet import db
+from .games import GameVote
 
 class Timeslot(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
@@ -9,4 +10,4 @@ class Timeslot(db.Model):
 	event = db.Column(db.String(128))
 
 	def get_number_votes(self, gameid):
-		return 0
+		return len(GameVote.query.filter_by(slot_id=self.id, game_id=gameid).all())
