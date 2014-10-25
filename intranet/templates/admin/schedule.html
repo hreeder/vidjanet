@@ -1,0 +1,105 @@
+{% extends "admin/base.html" %}
+{% block title %}Event Schedule{% endblock %}
+
+{% block content %}
+<h1>Event Schedule</h1>
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h3 class="panel-title">Time Slots</h3>
+	</div>
+	<table class="panel-body table table-bordered table-striped table-hover">
+		<thead>
+			<tr>
+				<th>Day</th>
+				<th>Start</th>
+				<th>End</th>
+				<th>Votable</th>
+				<th>Event</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for timeslot in timeslots %}
+				<tr>
+					<td>{{ timeslot.day|expand_day }}</td>
+					<td>{{ timeslot.start }}</td>
+					<td>{{ timeslot.end }}</td>
+					<td>{{ timeslot.votable }}</td>
+					<td>{{ timeslot.event }}</td>
+					<td>
+						<div class="btn-group">
+							<button class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">Actions <b class="caret"></b></button>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="/admin/schedule/delslot/{{ timeslot.id }}">Delete</a></li>
+							</ul>
+						</div>
+					</td>
+				</tr>
+			{% endfor %}
+			{# Final Row - Input for new slots #}
+			<form action="/admin/schedule/newslot" method="POST">
+				<tr>
+					<td>
+						<select class="form-control" name="day">
+							{% for day in possible_days %}
+							<option value="{{ day.code }}">{{ day.day }}</option>
+							{% endfor %}
+						</select>
+					</td>
+					<td><input class="form-control" type="time" name="start"></td>
+					<td><input class="form-control" type="time" name="end"></td>
+					<td><input type="checkbox" checked name="votable" id="votable"></input></td>
+					<td><input class="form-control" disabled type="text" name="event" id="event"></input></td>
+					<td><button class="btn btn-primary btn-block">Add</button></td>
+				</tr>
+			</form>
+		</tbody>
+	</table>
+</div>
+
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h3 class="panel-title">Available Games</h3>
+	</div>
+	<table class="panel-body table table-hover table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>Game</th>
+				<th>Primary List</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for game in games %}
+				<tr>
+					<td>{{ game.name }}</td>
+					<td>{{ game.primary }}</td>
+					<td></td>
+				</tr>
+			{% endfor %}
+			{# Final Row - Input for New Game #}
+			<form action="/admin/schedule/newgame" method="POST">
+				<tr>
+					<td><input class="form-control" name="gamename" type="text"></input></td>
+					<td><input type="checkbox" name="primary" id="primary"></input></td>
+					<td><button class="btn btn-primary btn-block">Add</button></td>
+				</tr>
+			</form>
+		</tbody>
+	</table>
+</div>
+{% endblock %}
+
+{% block endjs %}
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#votable').change(function(){
+			if($(this).is(":checked")) {
+				$('#event').prop("disabled", true);
+			} else {
+				$('#event').prop("disabled", false);
+			}
+		})
+	});
+</script>
+{% endblock %}

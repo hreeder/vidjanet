@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block main %}
+	<h2>{{ config.EVENT_NAME }} {{ setting("eventno") }} Schedule</h2>
+
+	{% for day in possible_days %}
+	<div class="well">
+		<p class="text-primary"><b>{{ day.day }}</b></p>
+		{% for slot in day.slots %}
+			<b>{{ slot.start }} - {{ slot.end }}</b>: {% if slot.votable %}Undecided - <a href="#" data-toggle="modal" data-target="#modal-slot-{{ slot.id }}">Click here to vote!</a>{% else %}{{ slot.event }}{% endif %}
+			<br />
+			{% if slot.votable %}
+			<div class="modal fade" id="modal-slot-{{ slot.id }}" tabindex="-1" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button class="close" type="button" data-dismiss="modal">
+								<span aria-hidden="true">&times;</span>
+								<span class="sr-only">Close</span>
+							</button>
+							<h4 class="modal-title">{{ day.day }} {{ slot.start }} - {{ slot.end }} - Vote For Games!</h4>
+						</div>
+						<div class="modal-body">
+							<h4>Click a button to cast your vote!</h4>
+							<p><i>Current Votes are shown in brackets beside each game</i></p>
+							<div class="row">
+								<div class="col-md-6">
+									{% for game in primary %}
+									<a class="btn btn-info" href="/schedule/vote/{{ slot.id }}/{{ game.id }}">{{ game.name }} ({{ slot.get_number_votes(game.id) }})</a>
+									<br />
+									{% endfor %}
+								</div>
+								<div class="col-md-6">
+									{% for game in othergames %}
+									<a class="btn btn-warning" href="/schedule/vote/{{ slot.id }}/{{ game.id }}">{{ game.name }}</a>
+									<br />
+									{% endfor %}
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endif %}
+		{% endfor %}
+		<div class="clearfix"></div>
+	</div>
+	{% endfor %}
+{% endblock %}

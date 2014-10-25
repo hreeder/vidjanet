@@ -1,0 +1,60 @@
+{% extends "admin/base.html" %}
+{% block title %}Settings{% endblock %}
+
+{% block content %}
+<h1>Settings</h1>
+<form method="POST" action>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			{% if setting("RvB") %}
+				<a href="/admin/settings/rvb" class="btn btn-block btn-success">Red vs Blue: Enabled</a>
+			{% else %}
+				<a href="/admin/settings/rvb" class="btn btn-block btn-danger">Red vs Blue: Disabled</a>
+			{% endif %}
+			<br />
+			
+			<div class="row form-group">
+				<label class="col-md-2 control-label" for="eventno">Event Number</label>
+				<div class="col-md-10">
+					<input type="number" class="form-control" name="eventno" id="eventno" value="{{ setting("eventno") }}"></input>
+				</div>
+			</div>
+			<div class="row form-group">
+				<label class="col-md-2 control-label" for="startday">Start Day</label>
+				<div class="col-md-10">
+					<select class="form-control" name="startday">
+						<option value="mon"  {% if setting("startday") == "mon" %} selected{% endif %}>Monday</option>
+						<option value="tues" {% if setting("startday") == "tues" %} selected{% endif %}>Tuesday</option>
+						<option value="wed"  {% if setting("startday") == "wed" %} selected{% endif %}>Wednesday</option>
+						<option value="thurs"  {% if setting("startday") == "thurs" %} selected{% endif %}>Thursday</option>
+						<option value="fri"  {% if setting("startday") == "fri" %} selected{% endif %}>Friday</option>
+						<option value="sat"  {% if setting("startday") == "sat" %} selected{% endif %}>Saturday</option>
+						<option value="sun"  {% if setting("startday") == "sun" %} selected{% endif %}>Sunday</option>
+					</select>
+				</div>
+			</div>
+			<div class="row form-group">
+				<label class="col-md-2 control-label" for="endday">End Day</label>
+				<div class="col-md-10">
+					<select class="form-control" name="endday">
+						<option value="mon"  {% if setting("endday") == "mon" %} selected{% endif %}>Monday</option>
+						<option value="tues"  {% if setting("endday") == "tues" %} selected{% endif %}>Tuesday</option>
+						<option value="wed"  {% if setting("endday") == "wed" %} selected{% endif %}>Wednesday</option>
+						<option value="thurs"  {% if setting("endday") == "thurs" %} selected{% endif %}>Thursday</option>
+						<option value="fri"  {% if setting("endday") == "fri" %} selected{% endif %}>Friday</option>
+						<option value="sat"  {% if setting("endday") == "sat" %} selected{% endif %}>Saturday</option>
+						<option value="sun"  {% if setting("endday") == "sun" %} selected{% endif %}>Sunday</option>
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<button class="btn btn-block btn-primary" type="submit">Save Settings</button>
+		</div>
+	</div>
+
+</form>
+{% endblock %}
