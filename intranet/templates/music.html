@@ -3,7 +3,26 @@
 {% block main %}
 <h2>Song Requests</h2>
 <div class="row">
-	<div class="col-md-9">
+	<div class="col-md-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Latest Requested Tracks</h3>
+			</div>
+			<table class="table panel-body table-hover table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>Song</th>
+						<th>Artist</th>
+						<th>Requested By</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="col-md-6">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Request a Track</h3>
@@ -39,25 +58,6 @@
 					</form>
 				{% endif %}
 			</div>
-		</div>
-	</div>
-	<div class="col-md-3">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">Latest Requested Tracks</h3>
-			</div>
-			<table class="table panel-body table-hover table-bordered table-striped">
-				<thead>
-					<tr>
-						<th>Song</th>
-						<th>Artist</th>
-						<th>Requested By</th>
-					</tr>
-				</thead>
-				<tbody>
-					
-				</tbody>
-			</table>
 		</div>
 	</div>
 </div>
