@@ -48,3 +48,8 @@ def vote_for_game(slotid, gameid):
 			db.session.commit()
 		
 	return redirect("/schedule")
+
+
+@app.route("/music")
+def view_song_requests():
+	return render_template("music.html")

@@ -71,4 +71,4 @@ def settings_processor():
 
 from intranet import views, filters
 
-from intranet.models import timeslots, games
+from intranet.models import timeslots, games, music
