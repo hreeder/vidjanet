@@ -11,9 +11,9 @@
         <ul class="nav navbar-nav">
             <li{% if request.path == "/" %} class="active"{% endif %}><a href="/">Home</a></li>
             <li{% if request.path == "/schedule" %} class="active"{% endif %}><a href="/schedule">Event Schedule</a></li>
-            <li><a href="">Downloads</a></li>
+            <li{% if request.path.startswith("/downloads") %} class="active"{% endif %}><a href="/downloads">Downloads</a></li>
             <li><a href="">{{ config.EVENT_NAME }} TV</a></li>
-            <li><a href="">Song Requests</a></li>
+            <li{% if request.path.startswith("/music") %} class="active"{% endif %}><a href="/music">Song Requests</a></li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
