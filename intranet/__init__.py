@@ -24,6 +24,10 @@ lm = LoginManager()
 lm.init_app(app)
 lm.login_view = "login"
 
+if app.config['SENTRY_ENABLED']:
+	from raven.contrib.flask import Sentry
+	sentry = Sentry(app)
+
 from intranet.models.user import AnonymousUser
 lm.anonymous_user = AnonymousUser
 
