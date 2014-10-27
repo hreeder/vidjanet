@@ -17,7 +17,13 @@
 					</tr>
 				</thead>
 				<tbody>
-					
+					{% for track in requests %}
+					<tr>
+						<td>{{ track.title }}</td>
+						<td>{{ track.artist }}</td>
+						<td>{{ track.get_requester().username }}</td>
+					</tr>
+					{% endfor %}
 				</tbody>
 			</table>
 		</div>

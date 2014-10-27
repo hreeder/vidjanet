@@ -1,4 +1,4 @@
-from intranet import db
+from intranet import db, users
 
 class TrackRequest(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
@@ -7,3 +7,6 @@ class TrackRequest(db.Model):
 	url = db.Column(db.String(128))
 	user_id = db.Column(db.Integer)
 	votes = db.Column(db.Integer)
+
+	def get_requester(self):
+		return users.get_user(user_id=self.user_id)
