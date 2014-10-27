@@ -31,7 +31,7 @@
 				{% if current_user.is_anonymous() %}
 					<i><small class="text-info">You must be <a href="/login">logged in</a> to request a track.</small></i>
 				{% else %}
-					<form action method="POST">
+					<form action method="POST" enctype="multipart/form-data">
 						<div class="row form-group">
 							<label class="col-md-3 control-label" for="songtitle">Song Title<br/><small class="text-info">Required</small></label>
 							<div class="col-md-9">
