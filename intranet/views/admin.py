@@ -129,3 +129,8 @@ def mark_song_played(songid):
 	db.session.commit()
 
 	return redirect("/admin/music")
+
+@app.route("/admin/downloads")
+@admin
+def admin_downloads():
+	return render_template("admin/downloads.html")
