@@ -1,0 +1,56 @@
+{% extends "admin/base.html" %}
+{% block title %}Song Requests{% endblock %}
+
+{% block content %}
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">Requested Tracks (Longest Standing Requests First)</h3>
+		</div>
+		<table class="table panel-body">
+			<thead>
+				<tr>
+					<th>Track</th>
+					<th>Artist</th>
+					<th>Uploaded File</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for track in upcoming %}
+				<tr id="track-{{ track.id }}">
+					<td>{{ track.title }}</td>
+					<td>{{ track.artist }}</td>
+					<td>{% if track.url %}<a href="{{ setting("music-base-url") }}/{{ track.url }}">Link</a>{% else %}No Uploaded File{% endif %}</td>
+					<td><a href="/admin/music/play/{{ track.id }}" class="btn btn-xs btn-info">Mark Played</a></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+        <div class="panel panel-primary">
+                <div class="panel-heading">
+                        <h3 class="panel-title">Satisfied Requests</h3>
+                </div>
+                <table class="table panel-body">
+                        <thead>
+                                <tr>
+                                        <th>Track</th>
+                                        <th>Artist</th>
+                                        <th>Uploaded File</th>
+                                        <th>Actions</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                                {% for track in played %}
+                                <tr id="track-{{ track.id }}">
+                                        <td>{{ track.title }}</td>
+                                        <td>{{ track.artist }}</td>
+                                        <td>{% if track.url %}<a href="{{ setting("music-base-url") }}/{{ track.url }}">Link</a>{% else %}No Uploaded File{% endif %}</td>
+                                        <td></td>
+                                </tr>
+                                {% endfor %}
+                        </tbody>
+                </table>
+        </div>
+{% endblock %}

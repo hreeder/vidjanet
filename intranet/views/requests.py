@@ -76,10 +76,11 @@ def view_song_requests():
 			fileuri = os.path.join(app.config['MUSIC_UPLOAD_FOLDER'], filename)
 			file.save(fileuri)
 
-		songrequest = TrackRequest(title=title, artist=artist, user_id=current_user.get_id(), url=fileuri)
+		songrequest = TrackRequest(title=title, artist=artist, user_id=current_user.get_id(), url=fileuri, played=False)
 		db.session.add(songrequest)
 		db.session.commit()
 
-	requests = TrackRequest.query.all()
+	requests = TrackRequest.query.filter_by(played=False).all()
+	played = TrackRequest.query.filter_by(played=True).order_by("id desc").limit(5).all()
 
-	return render_template("music.html", requests=requests)
+	return render_template("music.html", requests=requests, played=played)

@@ -27,6 +27,29 @@
 				</tbody>
 			</table>
 		</div>
+                <div class="panel panel-default">
+                        <div class="panel-heading">
+                                <h3 class="panel-title">Played Requests</h3>
+                        </div>
+                        <table class="table panel-body table-hover table-bordered table-striped">
+                                <thead>
+                                        <tr>
+                                                <th>Song</th>
+                                                <th>Artist</th>
+                                                <th>Requested By</th>
+                                        </tr>
+                                </thead>
+                                <tbody>
+                                        {% for track in played %}
+                                        <tr>
+                                                <td>{{ track.title }}</td>
+                                                <td>{{ track.artist }}</td>
+                                                <td>{{ track.get_requester().username }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                </tbody>
+                        </table>
+                </div>
 	</div>
 	<div class="col-md-6">
 		<div class="panel panel-primary">

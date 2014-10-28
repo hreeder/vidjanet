@@ -3,6 +3,7 @@ from intranet.classes.users import admin
 from intranet.filters import get_possible_days
 from intranet.models.timeslots import Timeslot
 from intranet.models.games import Game
+from intranet.models.music import TrackRequest
 
 from flask import redirect, render_template, request, flash
 
@@ -22,6 +23,12 @@ def admin_settings():
 		r.set(app.config['SETTING_PREFIX'] + "eventno", eventno)
 		r.set(app.config['SETTING_PREFIX'] + "startday", startday)
 		r.set(app.config['SETTING_PREFIX'] + "endday", endday)
+
+		musicuri = request.form['musicuri']
+		downloadsuri = request.form['downloadsuri']
+
+		r.set(app.config['SETTING_PREFIX'] + "music-base-url", musicuri)
+		r.set(app.config['SETTING_PREFIX'] + "downloads-base-url", downloadsuri)
 
 		flash("Settings Saved", "success")
 	return render_template("admin/settings.html")
@@ -103,3 +110,22 @@ def add_game():
 	db.session.commit()
 
 	return redirect("/admin/schedule")
+
+@app.route("/admin/music")
+@admin
+def view_song_requests_dj():
+	upcoming = TrackRequest.query.filter_by(played=False).all()
+	played = TrackRequest.query.filter_by(played=True).all()
+
+	return render_template("admin/music.html", upcoming=upcoming, played=played)
+
+@app.route("/admin/music/play/<songid>")
+@admin
+def mark_song_played(songid):
+	track = TrackRequest.query.filter_by(id=songid).first_or_404()
+
+	track.played = True
+	db.session.add(track)
+	db.session.commit()
+
+	return redirect("/admin/music")
