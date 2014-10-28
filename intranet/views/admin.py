@@ -1,6 +1,7 @@
 from intranet import app, db, r
 from intranet.classes.users import admin
 from intranet.filters import get_possible_days
+from intranet.models.downloads import DownloadTag, DownloadFile
 from intranet.models.timeslots import Timeslot
 from intranet.models.games import Game
 from intranet.models.music import TrackRequest
@@ -130,7 +131,40 @@ def mark_song_played(songid):
 
 	return redirect("/admin/music")
 
-@app.route("/admin/downloads")
+@app.route("/admin/downloads", methods=["GET", "POST"])
 @admin
 def admin_downloads():
-	return render_template("admin/downloads.html")
+	if request.method == "POST":
+		# We've posted the new download form.
+		# Process it
+		title = request.form['title']
+		description = request.form['description']
+		tags = request.form['tags']
+		file = request.files['file']
+		filename = secure_filename(file.filename)
+		file.save(os.path.join(app.config['DOWNLOAD_UPLOAD_FOLDER'], filename))
+
+		dlfile = DownloadFile(title=title, description=description, url=filename)
+
+		# We may have some tags too
+		if tags:
+			if "," in tags:
+				tags = tags.split(",")
+
+				# Remove leading/trailing whitespace from tags
+				tags = [tag.trim() for tag in tags]
+			else:
+				# Remove leading/trailing whitespace
+				tags = tags.trim()
+
+				# We're going to make tags a list just so we don't get individual letter tags
+				tags = [tags,]
+
+			for tag in tags:
+				newtag = DownloadTag(name=tag)
+				db.session.add(newtag)
+
+		# TODO: Add tags to actual downloadable file
+
+	downloads = DownloadFile.query.all()
+	return render_template("admin/downloads.html", downloads=downloads)

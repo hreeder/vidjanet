@@ -13,6 +13,7 @@ class DownloadTag(db.Model):
 class DownloadFile(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	title = db.Column(db.String(64))
+	description = db.Column(db.Text)
 	url = db.Column(db.String(128))
 	
 	def get_tags(self):
