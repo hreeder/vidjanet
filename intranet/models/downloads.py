@@ -7,8 +7,13 @@ downloads_tagged = db.Table('downloads_tagged',
 class DownloadTag(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(64))
+	files = db.relationship('DownloadFile', secondary=downloads_tagged,
+		backref=db.backref('tags', lazy='dynamic'))
 
 class DownloadFile(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	title = db.Column(db.String(64))
 	url = db.Column(db.String(128))
+	
+	def get_tags(self):
+		return [tag.name for tag in self.tags]
