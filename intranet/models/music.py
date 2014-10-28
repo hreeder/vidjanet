@@ -6,6 +6,7 @@ class TrackRequest(db.Model):
 	artist = db.Column(db.String(128))
 	url = db.Column(db.String(128))
 	user_id = db.Column(db.Integer)
+	played = db.Column(db.Boolean)
 	votes = db.Column(db.Integer)
 
 	def get_requester(self):
