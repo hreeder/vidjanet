@@ -70,13 +70,12 @@ def view_song_requests():
 
 		# If we have a file upload then we should store it somewhere
 		file = request.files['songupload']
-		fileuri = ""
+		filename = ""
 		if file and "." in file.filename and file.filename.rsplit(".", 1)[1] in app.config['MUSIC_ALLOWED_EXTENSIONS']:
 			filename = secure_filename(file.filename)
-			fileuri = os.path.join(app.config['MUSIC_UPLOAD_FOLDER'], filename)
-			file.save(fileuri)
+			file.save(os.path.join(app.config['MUSIC_UPLOAD_FOLDER'], filename))
 
-		songrequest = TrackRequest(title=title, artist=artist, user_id=current_user.get_id(), url=fileuri, played=False)
+		songrequest = TrackRequest(title=title, artist=artist, user_id=current_user.get_id(), url=filename, played=False)
 		db.session.add(songrequest)
 		db.session.commit()
 
