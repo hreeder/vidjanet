@@ -11,6 +11,10 @@ XenForo (More forums/auth methods coming later - open or comment on an issue if 
  - Current Implementation only supports MySQL for XenForo database
 Redis (For storing site settings)
 
+Known Issues
+==
+Current XenForo authentication does not support any external authentication methods (ie Facebook or Steam).
+
 Installation
 ==
 Run the following
@@ -23,6 +27,7 @@ And follow the installer prompts to generate your config file and populate your 
 
 TODO
 ==
+ - Support for XenForo External Authentication
  - Other types of forums for authentication
  - Internal Authentication
  - Tournament Planning
