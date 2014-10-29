@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block main %}
+<h2>Song Requests</h2>
+<div class="row">
+	<div class="col-md-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Latest Requested Tracks</h3>
+			</div>
+			<table class="table panel-body table-hover table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>Song</th>
+						<th>Artist</th>
+						<th>Requested By</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for track in requests %}
+					<tr>
+						<td>{{ track.title }}</td>
+						<td>{{ track.artist }}</td>
+						<td>{{ track.get_requester().username }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+                <div class="panel panel-default">
+                        <div class="panel-heading">
+                                <h3 class="panel-title">Played Requests</h3>
+                        </div>
+                        <table class="table panel-body table-hover table-bordered table-striped">
+                                <thead>
+                                        <tr>
+                                                <th>Song</th>
+                                                <th>Artist</th>
+                                                <th>Requested By</th>
+                                        </tr>
+                                </thead>
+                                <tbody>
+                                        {% for track in played %}
+                                        <tr>
+                                                <td>{{ track.title }}</td>
+                                                <td>{{ track.artist }}</td>
+                                                <td>{{ track.get_requester().username }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                </tbody>
+                        </table>
+                </div>
+	</div>
+	<div class="col-md-6">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Request a Track</h3>
+			</div>
+			<div class="panel-body">
+				{% if current_user.is_anonymous() %}
+					<i><small class="text-info">You must be <a href="/login">logged in</a> to request a track.</small></i>
+				{% else %}
+					<form action method="POST" enctype="multipart/form-data">
+						<div class="row form-group">
+							<label class="col-md-3 control-label" for="songtitle">Song Title<br/><small class="text-info">Required</small></label>
+							<div class="col-md-9">
+								<input class="form-control" name="songtitle" id="songtitle" type="text" placeholder="Song Title" autofocus></input>
+							</div>
+						</div>
+						<div class="row form-group">
+							<label class="col-md-3 control-label" for="artist">Artist</label>
+							<div class="col-md-9">
+								<input class="form-control" name="artist" id="artist" type="text" placeholder="Artist"></input>
+							</div>
+						</div>
+						<div class="row form-group">
+							<label class="col-md-3 control-label" for="songupload">Upload Track</label>
+							<div class="col-md-9">
+								<input class="form-control" type="file" name="songupload" id="songupload"></input>
+							</div>
+						</div>
+						<div class="row form-group">
+							<div class="col-md-9 col-md-offset-3">
+								<button class="btn btn-primary btn-block" type="submit">Submit Request</button>
+							</div>
+						</div>
+					</form>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

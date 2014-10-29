@@ -4,7 +4,7 @@
 {% block content %}
 <h1>Red vs Blue Settings</h1>
 <div class="row">
-	<div class="well clearfix">
+	<div class="col-md-12">
 		{% if setting("RvB") %}
 			<a href="/admin/rvb/toggle" class="btn btn-block btn-success">Red vs Blue: Enabled</a>
 		{% else %}
@@ -12,35 +12,76 @@
 		{% endif %}
 	</div>
 </div>
-<form method="POST" action>
-	<div class="row">
-		<div class="col-md-6">
-			<div class="panel panel-danger">
-				<div class="panel-heading"><h3 class="panel-title">Red Team</h3></div>
-				<div class="panel-body" style="text-align: center;">
-					Current Score: {{ setting('RvB-red-score') }}
-				</div>
-				<table class="table">
-					
-				</table>
+<hr />
+<div class="row">
+	<div class="col-md-6">
+		<div class="panel panel-danger">
+			<div class="panel-heading"><h3 class="panel-title">Red Team</h3></div>
+			<div class="panel-body" style="text-align: center;">
+				Current Score: {{ setting('RvB-red-score') }}
 			</div>
-		</div>
-		<div class="col-md-6">
-			<div class="panel panel-info">
-				<div class="panel-heading"><h3 class="panel-title">Blue Team</h3></div>
-				<div class="panel-body" style="text-align: center;">
-					Current Score: {{ setting('RvB-blue-score') }}
-				</div>
-				<table class="table">
-					
-				</table>
-			</div>
+			<table class="table">
+				
+			</table>
 		</div>
 	</div>
-	<div class="row">
-		<div class="well clearfix">
-			<button class="btn btn-primary btn-block" type="submit">Update</button>
+	<div class="col-md-6">
+		<div class="panel panel-info">
+			<div class="panel-heading"><h3 class="panel-title">Blue Team</h3></div>
+			<div class="panel-body" style="text-align: center;">
+				Current Score: {{ setting('RvB-blue-score') }}
+			</div>
+			<table class="table">
+				
+			</table>
 		</div>
 	</div>
-</form>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<a class="btn btn-primary btn-block" href="#" data-toggle="modal" data-target="#update-rvb">Update</a>
+	</div>
+</div>
+
+<div class="modal fade" id="update-rvb" tabindex="-1" role="dialog">
+	<form action method="POST">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button class="close" type="button" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span>
+						<span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title">Update RvB</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-6">
+							<h3 class="text-danger">Red Team</h3>
+							<label class="control-label"><i>Input in format +/- points</i></label>
+							<input class="form-control" name="red-points"></input>
+							<br />
+							<label class="control-label"><i>Reason for this change</i></label>
+							<input class="form-control" name="red-reason"></input>
+						</div>
+						<div class="col-md-6">
+							<h3 class="text-info">Blue Team</h3>
+							<label class="control-label"><i>Input in format +/- points</i></label>
+							<input class="form-control" name="blue-points"></input>
+							<br />
+							<label class="control-label"><i>Reason for this change</i></label>
+							<input class="form-control" name="blue-reason"></input>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<div class="pull-right">
+						<button class="btn btn-default" type="button" data-dismiss="modal">Cancel</button>
+						<button class="btn btn-primary" type="submit">Submit</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
 {% endblock %}

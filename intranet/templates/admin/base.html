@@ -11,6 +11,7 @@
 			<a href="/admin/tournaments" class="list-group-item{% if request.path.startswith("/admin/tournaments") %} active{% endif %}">Tournaments</a>
 			{% endif %}
 			<a href="/admin/downloads" class="list-group-item{% if request.path.startswith("/admin/downloads") %} active{% endif %}">Downloads</a>
+			<a href="/admin/music" class="list-group-item{% if request.path.startswith("/admin/music") %} active{% endif %}">Song Requests</a>
 			<a href="/admin/rvb" class="list-group-item{% if request.path.startswith("/admin/rvb") %} active{% endif %}">
 				Red vs Blue
 				{% if setting("RvB") %}
