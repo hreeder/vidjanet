@@ -180,4 +180,3 @@ def admin_downloads():
 
 	downloads = DownloadFile.query.all()
 	return render_template("admin/downloads.html", downloads=downloads)
->>>>>>> 64f203511fbaacfa45355fc3965d260715ea8967
