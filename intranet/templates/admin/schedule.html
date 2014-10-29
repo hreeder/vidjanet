@@ -30,6 +30,7 @@
 						<div class="btn-group">
 							<button class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown">Actions <b class="caret"></b></button>
 							<ul class="dropdown-menu" role="menu">
+								{% if timeslot.votable %}<li><a href="/admin/schedule/poll/{{ timeslot.id }}">View Game Poll</a></li>{% endif %}
 								<li><a href="/admin/schedule/delslot/{{ timeslot.id }}">Delete</a></li>
 							</ul>
 						</div>

@@ -103,3 +103,15 @@ def add_game():
 	db.session.commit()
 
 	return redirect("/admin/schedule")
+
+@app.route("/admin/schedule/poll/<slotid>")
+@admin
+def view_poll(slotid):
+	games = Game.query.all()
+	slot = Timeslot.query.filter_by(id=slotid).first()
+
+	if not slot:
+		flash("Timeslot not found", "danger")
+		return redirect("/admin/schedule")
+
+	return render_template("admin/poll.html", slot=slot, games=games)
