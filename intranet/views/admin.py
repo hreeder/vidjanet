@@ -1,3 +1,5 @@
+import os
+
 from intranet import app, db, r
 from intranet.classes.users import admin
 from intranet.filters import get_possible_days
@@ -7,6 +9,8 @@ from intranet.models.games import Game
 from intranet.models.music import TrackRequest
 
 from flask import redirect, render_template, request, flash
+
+from werkzeug import secure_filename
 
 @app.route("/admin")
 @admin
@@ -164,10 +168,10 @@ def admin_downloads():
 				tags = tags.split(",")
 
 				# Remove leading/trailing whitespace from tags
-				tags = [tag.trim() for tag in tags]
+				tags = [tag.strip() for tag in tags]
 			else:
 				# Remove leading/trailing whitespace
-				tags = tags.trim()
+				tags = tags.strip()
 
 				# We're going to make tags a list just so we don't get individual letter tags
 				tags = [tags,]
@@ -177,6 +181,9 @@ def admin_downloads():
 				db.session.add(newtag)
 
 		# TODO: Add tags to actual downloadable file
+
+		db.session.add(dlfile)
+		db.session.commit()
 
 	downloads = DownloadFile.query.all()
 	return render_template("admin/downloads.html", downloads=downloads)

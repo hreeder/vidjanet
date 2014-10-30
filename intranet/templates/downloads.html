@@ -5,7 +5,7 @@
 		<h3>Downloads</h3>
 		<div class="list-group">
 			{% for download in downloads %}
-			<a href="{{ setting("download-base-url") }}/{{ download.url }}" class="list-group-item">
+			<a href="{{ setting("downloads-base-url") }}/{{ download.url }}" class="list-group-item">
 				<h4 class="list-group-item-heading">{{ download.title }}</h4>
 				<p class="list-group-item-text">{{ download.description }}</p>
 				<p class="list-group-item-text">{{ download.get_tags()|join(", ") }}</p>
@@ -17,7 +17,7 @@
 		<div class="list-group">
 			<a href="#" class="list-group-item disabled"><h4 class="list-group-item-heading">Tags</h4></a>
 			{% for tag in tags %}
-			<a href="/downloads/tagged/{{ tag.name }}">{{ tag.name }}</a>
+			<a href="/downloads/tagged/{{ tag.name }}" class="list-group-item">{{ tag.name }}</a>
 			{% endfor %}
 		</div>
 	</div>
