@@ -18,4 +18,4 @@ class DownloadFile(db.Model):
                                backref=db.backref('files', lazy="dynamic"))
 	
 	def get_tags(self):
-		return [tag.name for tag in self.tags.all()]
+		return [tag.name for tag in self.tags]
