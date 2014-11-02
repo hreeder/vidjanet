@@ -9,7 +9,7 @@ def downloads_index(tagname=None):
 	tags = DownloadTag.query.all()
 	if tagname:
 		tag = DownloadTag.query.filter_by(name=tagname).first_or_404()
-		downloads = tag.files.all()
+		downloads = tag.files
 	else:
 		downloads = DownloadFile.query.all()
 	return render_template("downloads.html", downloads=downloads, tags=tags)
