@@ -8,7 +8,7 @@
 			<a href="{{ setting("downloads-base-url") }}/{{ download.url }}" class="list-group-item">
 				<h4 class="list-group-item-heading">{{ download.title }}</h4>
 				<p class="list-group-item-text">{{ download.description }}</p>
-				<p class="list-group-item-text">{{ download.get_tags()|join(", ") }}</p>
+				<p class="list-group-item-text"><small><b>Tagged</b>: {{ download.get_tags()|join(", ") }}</small></p>
 			</a>
 			{% endfor %}
 		</div>

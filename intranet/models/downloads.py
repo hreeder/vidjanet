@@ -17,4 +17,4 @@ class DownloadFile(db.Model):
 	url = db.Column(db.String(128))
 	
 	def get_tags(self):
-		return [tag.name for tag in self.tags]
+		return [tag.name for tag in self.tags.all()]
