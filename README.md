@@ -5,11 +5,11 @@ VidjaNet is a LAN Party Intranet Site
 
 Requirements
 ==
-Python (Developed in 2.7 - untested on any other platform)
-SQLAlchemy Supported Database Server
-XenForo (More forums/auth methods coming later - open or comment on an issue if there is one you would like to see)
+- Python (Developed in 2.7 - untested on any other platform)
+- SQLAlchemy Supported Database Server
+- XenForo (More forums/auth methods coming later - open or comment on an issue if there is one you would like to see)
  - Current Implementation only supports MySQL for XenForo database
-Redis (For storing site settings)
+- Redis (For storing site settings)
 
 Known Issues
 ==
