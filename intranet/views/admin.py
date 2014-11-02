@@ -128,6 +128,20 @@ def view_poll(slotid):
 
 	return render_template("admin/poll.html", slot=slot, games=games)
 
+@app.route("/admin/schedule/accept/<slotid>/<gameid>")
+@admin
+def accept_game(slotid, gameid):
+        slot = Timeslot.query.filter_by(id=slotid).first_or_404()
+        game = Game.query.filter_by(id=gameid).first_or_404()
+        
+        slot.votable = False
+        slot.event = game.name
+
+        db.session.add(slot)
+        db.session.commit()
+
+        return redirect("/admin/schedule")
+
 @app.route("/admin/music")
 @admin
 def view_song_requests_dj():
