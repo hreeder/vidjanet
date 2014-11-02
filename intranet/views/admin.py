@@ -191,8 +191,13 @@ def admin_downloads():
 				tags = [tags,]
 
 			for tag in tags:
-				newtag = DownloadTag(name=tag)
-				db.session.add(newtag)
+                                # Let's see if the tag already exists?
+                                dltag = DownloadTag.query.filter_by(name=tag).first()
+                                if not dltag:
+                                        newtag = DownloadTag(name=tag)
+                                        db.session.add(newtag)
+                                        dltag = newtag
+                                dlfile.tags.append(dltag)
 
 		# TODO: Add tags to actual downloadable file
 

@@ -6,7 +6,7 @@ downloads_tagged = db.Table('downloads_tagged',
 
 class DownloadTag(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	name = db.Column(db.String(64))
+	name = db.Column(db.String(64), unique=True)
 
 class DownloadFile(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
