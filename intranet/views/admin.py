@@ -191,6 +191,7 @@ def admin_downloads():
 				tags = [tags,]
 
 			for tag in tags:
+                                tag = tag.lower()
                                 # Let's see if the tag already exists?
                                 dltag = DownloadTag.query.filter_by(name=tag).first()
                                 if not dltag:
